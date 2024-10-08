@@ -8,6 +8,9 @@ import routes from './routes/index.js';
 const app = express();
 
 const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
 // TODO: Serve static files of entire client dist folder
 app.use(express.static('../client/dist'));
