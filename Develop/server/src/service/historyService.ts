@@ -25,52 +25,52 @@ class HistoryService {
   
   // TODO: Define a write method that writes the updated cities array to the searchHistory.json file
   // private async write(cities: City[]) {}
-  private async write(states: City[]) {
-    return await fs.writeFile('db/db.json', JSON.stringify(states, null, '\t'));
+  private async write(cities: City[]) {
+    return await fs.writeFile('db/db.json', JSON.stringify(cities, null, '\t'));
   }
 
   // TODO: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
   // async getCities() {}
-  async getStates() {
-    return await this.read().then((states) => {
-      let parsedStates: City[];
+  async getCities() {
+    return await this.read().then((cities) => {
+      let parsedCities: City[];
 
       try {
-        parsedStates = [].concat(JSON.parse(states));
+        parsedCities = [].concat(JSON.parse(cities));
       } catch (err) {
-        parsedStates = [];
+        parsedCities = [];
       }
 
-      return parsedStates;
+      return parsedCities;
     });
   }
 
   // TODO Define an addCity method that adds a city to the searchHistory.json file
   // async addCity(city: string) {}
-  async addState(state: string) {
-    if (!state) {
-      throw new Error('state cannot be blank');
+  async addCity(city: string) {
+    if (!city) {
+      throw new Error('city cannot be blank');
     }
 
-    const newState: City = { name: state, id: uuidv4() };
+    const newCity: City = { name: city, id: uuidv4() };
 
-    return await this.getStates()
-      .then((states) => {
-        if (states.find((index) => index.name === state)) {
-          return states;
+    return await this.getCities()
+      .then((city) => {
+        if (city.find((index) => index.name === city)) {
+          return city;
         }
-        return [...states, newState];
+        return [...city, newCity];
       })
-      .then((updatedStates) => this.write(updatedStates))
-      .then(() => newState);
+      .then((updatedCities) => this.write(updatedCities))
+      .then(() => newCities);
   }
 
   // * BONUS TODO: Define a removeCity method that removes a city from the searchHistory.json file
   // async removeCity(id: string) {}
-  async removeState(id: string) {
-    return await this.getStates()
-      .then((states) => states.filter((state) => state.id !== id))
-      .then((filteredStates) => this.write(filteredStates));
+  async removeCity(id: string) {
+    return await this.getCities()
+      .then((cities) => cities.filter((city) => city.id !== id))
+      .then((filteredCities) => this.write(filteredCities));
   }
 }
 
