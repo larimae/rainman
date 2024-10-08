@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import path from 'path';
 import express from 'express';
 dotenv.config();
 
@@ -10,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // TODO: Serve static files of entire client dist folder
-app.use(express.static('client/dist'));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 // TODO: Implement middleware for parsing JSON and urlencoded form data
 //use.app
